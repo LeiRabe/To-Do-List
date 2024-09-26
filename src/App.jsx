@@ -10,7 +10,11 @@ function App() {
 
   //inside the useState param --> default value: [] (empty array)
   //useState will refresh the UI with the new "state" of the variable
+
+  //state of the list: the list of the todos to display
   const [todos, setTodos] = useState([]);
+  //state of the input: todoValues
+  const [todoValue, setTodoValue] = useState('');
 
   //----UPDATE the todos: Add button handler----//
   function handleAddTodos(newTodo) {
@@ -25,22 +29,34 @@ function App() {
     const newTodoList = todos.filter((todos, todoIndex) => {
       //if the current todoIndex is different from the given index then the element can stay in the list
       return todoIndex !== index;
-    }); 
+    });
     //set a new state: todos = todos - todos[todoIndex]
     setTodos(newTodoList);
   }
 
   //----EDIT the selected todo: crayon icon handle----//
   function handleEditTodo(index) {
+    const valueToBeEdited = todos[index];
+    setTodoValue(valueToBeEdited);
+    handleDeleteTodo(index);
 
   }
 
   return (
     //<> </> --> React fragment
-    //<main> --> parent level component
+    //<TodoList> and <TodoInput> are on the same level so they can't pass values to each other 
     <>
-      <TodoInput handleAddTodos={handleAddTodos} />
-      <TodoList todos={todos} handleDeleteTodo={handleDeleteTodo}/>
+      <TodoInput 
+      todoValue={todoValue} 
+      setTodoValue={setTodoValue} 
+      handleAddTodos={handleAddTodos} 
+      />
+
+      <TodoList 
+      todos={todos} 
+      handleDeleteTodo={handleDeleteTodo}
+      handleEditTodo = {handleEditTodo} 
+      />
     </>
   );
 }

@@ -9,7 +9,8 @@ export default function TodoList(props) {
         <ul className="main">
             {todos.map((todo, todoIndex) => {
                 return (
-                    //to pass props through multiple component: spread the props of
+                    //to pass props through multiple component: spread the props of the parent
+                    //the element ({todo}) inside of the child component (<TodoCard>) can be called in the passed as (children)
                     <TodoCard {...props} key={todoIndex} index={todoIndex}>
                         <p>{todo}</p>
                     </TodoCard>
